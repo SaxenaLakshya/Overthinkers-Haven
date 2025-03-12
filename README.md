@@ -1,4 +1,4 @@
-# **Personal Blogger 📝**
+# **Overthinkers Haven 📝**
 
 A simple, private blogging app that lets **overthinkers** store their thoughts **locally in a JSON file**. Built with **Express.js, EJS, CSS, and JavaScript**, it provides an easy way to **write and reflect** without distractions.
 
@@ -24,8 +24,8 @@ A simple, private blogging app that lets **overthinkers** store their thoughts *
 ### **1️⃣ Clone the repository**
 
 ```sh
-git clone https://github.com/SaxenaLakshya/Personal-Blogger.git
-cd Personal-Blogger
+git clone https://github.com/SaxenaLakshya/Overthinkers-Haven.git
+cd Overthinkers-Haven
 ```
 
 ### **2️⃣ Run the server with Nodemon**
