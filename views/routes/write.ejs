@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/write.css">
+    <title>Writing something...</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include("../static/header.ejs") %>
+
+        <!-- Blog Writer -->
+        <div class="blog">
+            <form action="/publish" method="post">
+                <div class="title">
+                    <label for="title"></label>
+                    <input class="title" type="text" name="title" id="title" placeholder="Title">
+                </div>
+                <div class="content">
+                    <textarea rows="10" cols="50" name="content" placeholder="Enter your paragraph here..."></textarea>
+                </div>
+                <div class="publish">
+                    <button type="publish">Save</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <%- include("../static/footer.ejs") %>
+</body>
+
+</html>

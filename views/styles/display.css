@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    font-family: "Montserrat", serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #333;
+    text-align: center;
+    padding: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: whitesmoke;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    display: inline-block;
+}
+
+nav ul li a:hover {
+    background-color: #a6ff00;
+    border-radius: 5px;
+    color: #333;
+}
+
+.blog {
+    justify-items: center;
+    padding: 10px;
+}
+
+.header {
+    text-align: center;
+    background-color: #ff6b6b;
+    color: aliceblue;
+}
+
+.title p {
+    height: 25px;
+    width: 700px;
+    margin: 10px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.content {
+    width: 700px;
+    margin: 10px;
+    text-align: left;
+}
+
+.post-date {
+    text-align: right;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+
+/* Footer Styles */
+.footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f4f4f4;
+    color: #333;
+    position: relative;
+}
+
+.social-links {
+    margin-top: 10px;
+}
+
+.social-links a {
+    margin: 0 10px;
+    display: inline-block;
+    color: #333;
+    /* Ensures icon color matches text */
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #0077b5;
+    /* LinkedIn blue */
+    transform: scale(1.2);
+}
+
+.social-icon {
+    width: 30px;
+    height: 30px;
+    fill: currentColor;
+    /* Makes icons inherit color */
+}
+
+
+/* Styles for the "No Blogs Available" Page */
+.no-blogs {
+    text-align: center;
+    padding: 50px;
+}
+
+.no-blogs .message {
+    background-color: #f1f1f1;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: "Montserrat", serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.no-blogs h1 {
+    font-size: 3rem;
+    color: #ff6b6b;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.no-blogs p {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 10px 0;
+}
+
+.no-blogs ul {
+    list-style: none;
+    padding: 0;
+}
+
+.no-blogs ul li {
+    font-size: 1.1rem;
+    color: #555;
+    margin: 10px 0;
+}
+
+.no-blogs .funny-graphic img {
+    margin-top: 30px;
+    max-width: 100%;
+    border-radius: 8px;
+}

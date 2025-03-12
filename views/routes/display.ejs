@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/display.css">
+    <title>Reading your Past?</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include("../static/header.ejs") %>
+
+    <!-- Blog Display -->
+    <% if (blogs && blogs.posts && blogs.posts.length > 0) { %>
+        <% blogs.posts.reverse().forEach(post => { %>
+            <div class="blog">
+                <div class="title">
+                    <hr>
+                    <strong>
+                        <p>
+                            <%= post.title %>
+                        </p>
+                    </strong>
+                </div>
+                <div class="content">
+                    <p>
+                        <%= post.content %>
+                    </p>
+                </div>
+                <div class="post-date">
+                    <%= post.date %>
+                </div>
+                
+            </div>
+        <% }); %>
+    <% } else { %>
+        <%- include('../static/error.ejs') %>
+    <% } %>
+
+    <!-- Footer -->
+    <%- include('../static/footer.ejs') %>
+
+</body>
+
+</html>
