@@ -11,25 +11,25 @@ const port = 3000
 // Functions to make life easy
 function readJSON() {
     try {
-        const data = fs.readFileSync('views/static/blogs.json', 'utf8');
-        const jsonData = JSON.parse(data);
-        console.log(jsonData);
-        return jsonData;
+        const data = fs.readFileSync('views/static/blogs.json', 'utf8')
+        const jsonData = JSON.parse(data)
+        console.log(jsonData)
+        return jsonData
     } catch (err) {
-        console.error('Error reading file: ', err);
+        console.error('Error reading file: ', err)
     }
 }
 
 function appendPost(newPost) {
     try {
-        const data = fs.readFileSync('views/static/blogs.json', 'utf8');
-        const jsonData = JSON.parse(data);
+        const data = fs.readFileSync('views/static/blogs.json', 'utf8')
+        const jsonData = JSON.parse(data)
 
-        jsonData.posts.push(newPost);
+        jsonData.posts.push(newPost)
 
-        fs.writeFileSync('views/static/blogs.json', JSON.stringify(jsonData, null, 2), 'utf8');
+        fs.writeFileSync('views/static/blogs.json', JSON.stringify(jsonData, null, 2), 'utf8')
     } catch (err) {
-        console.error('Error appending post: ', err);
+        console.error('Error appending post: ', err)
     }
 }
 
