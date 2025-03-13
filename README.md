@@ -31,6 +31,8 @@ cd Overthinkers-Haven
 ### **2️⃣ Run the server with Nodemon**
 
 ```sh
+npm i express body-parser
+npm i -g nodemon
 nodemon index.js
 ```
 
