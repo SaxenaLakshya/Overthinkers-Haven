@@ -1,11 +1,13 @@
 import bodyParser from "body-parser"
 import express from "express"
+import axios from "axios"
 import fs from "fs"
 
 
 // Important contants
 const app = express()
 const port = 3000
+const API_KEY = "https://v2.jokeapi.dev/joke/Programming,Dark,Spooky?type=twopart"
 
 
 // Functions to make life easy
@@ -15,8 +17,8 @@ function readJSON() {
         const jsonData = JSON.parse(data)
         console.log(jsonData)
         return jsonData
-    } catch (err) {
-        console.error('Error reading file: ', err)
+    } catch (error) {
+        console.error('Error reading file: ', error)
     }
 }
 
@@ -29,8 +31,8 @@ function appendPost(newPost) {
         jsonData.posts.push(newPost)
 
         fs.writeFileSync('views/static/blogs.json', JSON.stringify(jsonData, null, 2), 'utf8')
-    } catch (err) {
-        console.error('Error appending post: ', err)
+    } catch (error) {
+        console.error('Error appending post: ', error)
     }
 }
 
@@ -70,6 +72,16 @@ app.post('/publish', (req, res) => {
 app.get('/display', (req, res) => {
     const blogs = readJSON()
     res.render('routes/display.ejs', { blogs: blogs })
+})
+
+app.get("/joke", async (req, res) => {
+    try {
+        const result = await axios.get(API_KEY)
+        console.log(result.data)
+        res.render("routes/joke.ejs", { content: result.data })
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 
