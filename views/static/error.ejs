@@ -4,41 +4,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/display.css">
     <title>No Blogs Available</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, rgba(101, 116, 205, 0.1), rgba(155, 105, 200, 0.1));
+        }
+        .no-blogs-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #667eea;
+        }
+        .cta-button {
+            background: linear-gradient(135deg, #667eea, #9f7aea);
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        ul li:before {
+            content: "•";
+            color: #9f7aea;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
-<body>
+<body class="min-h-screen">
+    <!-- Particles Background -->
+    <div id="particles-js" class="fixed inset-0 pointer-events-none z-0"></div>
+    
+    <!-- Main Content -->
+    <div class="relative z-10 container mx-auto px-4 py-12 max-w-3xl">
+        <div class="no-blogs-container p-8 md:p-10">
+            <div class="message text-gray-800">
+                <h1 class="text-3xl md:text-4xl font-bold mb-6 text-indigo-800">Your Mind is Full, But This Page is Empty? 🤔</h1>
+                <p class="text-lg mb-4">Overthinking again? Great! Now let's put those thoughts to good use. ✍️</p>
+                <p class="text-lg mb-6">Journaling your thoughts isn't just writing, it's mental decluttering. Less stress, more clarity. A win-win, right?</p>
 
-    <!-- No Blogs Available Page -->
-    <div class="no-blogs">
-        <div class="message">
-            <h1>Your Mind is Full, But This Page is Empty? 🤔</h1>
-            <p>Overthinking again? Great! Now let’s put those thoughts to good use. ✍️</p>
-            <p>Journaling your thoughts isn't just writing, it's mental decluttering.
-                Less stress, more clarity. A win-win, right?</p>
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold mb-4 text-indigo-700">Why Should You Write?</h2>
+                    <ul class="space-y-2 mb-6">
+                        <li>Because your brain has too many tabs open. 🧠💭</li>
+                        <li>Because keeping thoughts inside only makes them louder. 📢</li>
+                        <li>Because 3 AM overthinking isn't the best therapist. 🌙💭</li>
+                        <li>Because writing down your feelings makes them easier to understand. 🔍</li>
+                    </ul>
+                </div>
 
-            <h2>Why Should You Write?</h2>
-            <ul>
-                <li>Because your brain has too many tabs open. 🧠💭</li>
-                <li>Because keeping thoughts inside only makes them louder. 📢</li>
-                <li>Because 3 AM overthinking isn't the best therapist. 🌙💭</li>
-                <li>Because writing down your feelings makes them easier to understand. 🔍</li>
-            </ul>
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold mb-4 text-indigo-700">What Can You Write About?</h2>
+                    <ul class="space-y-2 mb-6">
+                        <li>Your deepest thoughts (or that awkward thing from 5 years ago). 😬</li>
+                        <li>The random ideas that pop into your head at the worst times. 💡</li>
+                        <li>Things you wish you could say out loud but don't. 🤐</li>
+                        <li>Anything. Seriously, just start typing. 🚀</li>
+                    </ul>
+                </div>
 
-            <h2>What Can You Write About?</h2>
-            <ul>
-                <li>Your deepest thoughts (or that awkward thing from 5 years ago). 😬</li>
-                <li>The random ideas that pop into your head at the worst times. 💡</li>
-                <li>Things you wish you could say out loud but don’t. 🤐</li>
-                <li>Anything. Seriously, just start typing. 🚀</li>
-            </ul>
+                <p class="text-lg mb-8">Think of this blog as your mental time capsule—for you, by you. So grab a coffee ☕, take a deep breath, and start writing. Your future self will thank you. 💙</p>
 
-            <p>Think of this blog as your mental time capsule—for you, by you.
-                So grab a coffee ☕, take a deep breath, and start writing. Your future self will thank you. 💙</p>
+                <div class="text-center">
+                    <a href="/write" class="cta-button inline-block text-white font-semibold px-8 py-3 rounded-lg text-lg">
+                        Start Writing Now
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize non-interactive particles
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 40 },
+                "color": { "value": "#9f7aea" },
+                "shape": { "type": "circle" },
+                "opacity": {
+                    "value": 0.3,
+                    "random": true,
+                    "anim": { "enable": true, "speed": 1 }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": { "enable": true, "speed": 2 }
+                },
+                "line_linked": { "enable": false },
+                "move": {
+                    "enable": true,
+                    "speed": 1,
+                    "direction": "none",
+                    "random": true
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": false },
+                    "onclick": { "enable": false },
+                    "resize": true
+                }
+            }
+        });
+    </script>
 </body>
-
 </html>

@@ -5,32 +5,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../images/favicon.jpg" type="image/jpg">
-    <link rel="stylesheet" href="../styles/write.css">
     <title>Writing something...</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, rgba(101, 116, 205, 0.1), rgba(155, 105, 200, 0.1));
+        }
+        .blog-form {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #667eea;
+        }
+        .title-input {
+            border-bottom: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .title-input:focus {
+            border-bottom-color: #667eea;
+            outline: none;
+        }
+        .content-textarea {
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .content-textarea:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .publish-btn {
+            background: linear-gradient(135deg, #667eea, #9f7aea);
+            transition: all 0.3s ease;
+        }
+        .publish-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+    </style>
 </head>
 
-<body>
+<body class="min-h-screen">
+    <!-- Particles Background -->
+    <div id="particles-js" class="fixed inset-0 pointer-events-none z-0"></div>
+    
     <!-- Header -->
     <%- include("../static/header.ejs") %>
 
-        <!-- Blog Writer -->
-        <div class="blog">
+    <!-- Main Content -->
+    <main class="relative z-10 container mx-auto px-4 py-12 max-w-3xl">
+        <div class="blog-form p-8">
             <form action="/publish" method="post">
-                <div class="title">
-                    <label for="title"></label>
-                    <input class="title" type="text" name="title" id="title" placeholder="Title">
+                <div class="title mb-8">
+                    <label for="title" class="block text-gray-600 mb-2">Title</label>
+                    <input class="title-input w-full px-4 py-3 text-2xl font-semibold text-gray-800 bg-transparent" 
+                           type="text" 
+                           name="title" 
+                           id="title" 
+                           placeholder="What's on your mind?">
                 </div>
-                <div class="content">
-                    <textarea rows="10" cols="50" name="content" placeholder="Enter your paragraph here..."></textarea>
+                
+                <div class="content mb-8">
+                    <label for="content" class="block text-gray-600 mb-2">Your Thoughts</label>
+                    <textarea class="content-textarea w-full px-4 py-3 text-gray-700 rounded-lg" 
+                              rows="10" 
+                              name="content" 
+                              placeholder="Pour out your thoughts here..."></textarea>
                 </div>
-                <div class="publish">
-                    <button type="publish">Save</button>
+                
+                <div class="publish text-right">
+                    <button type="submit" 
+                            class="publish-btn text-white font-semibold px-8 py-3 rounded-lg">
+                        Save Your Thoughts
+                    </button>
                 </div>
             </form>
         </div>
+    </main>
 
-        <!-- Footer -->
-        <%- include("../static/footer.ejs") %>
+    <!-- Footer -->
+    <%- include("../static/footer.ejs") %>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize non-interactive particles
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 40 },
+                "color": { "value": "#9f7aea" },
+                "shape": { "type": "circle" },
+                "opacity": {
+                    "value": 0.3,
+                    "random": true,
+                    "anim": { "enable": true, "speed": 1 }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": { "enable": true, "speed": 2 }
+                },
+                "line_linked": { "enable": false },
+                "move": {
+                    "enable": true,
+                    "speed": 1,
+                    "direction": "none",
+                    "random": true
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": false },
+                    "onclick": { "enable": false },
+                    "resize": true
+                }
+            }
+        });
+    </script>
 </body>
-
 </html>

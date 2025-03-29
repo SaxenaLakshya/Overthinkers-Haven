@@ -5,19 +5,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../images/favicon.jpg" type="image/jpg">
-    <link rel="stylesheet" href="../styles/index.css">
     <title>Overthinker's Haven</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .cover-page {
+            background: linear-gradient(135deg, rgba(101, 116, 205, 0.8), rgba(155, 105, 200, 0.8)), 
+                        url('../images/thoughts-bg.jpg') center/cover no-repeat;
+        }
+        .content {
+            animation: fadeIn 1.5s ease-out;
+        }
+        .btn {
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 
-<body>
+<body class="min-h-screen flex items-center justify-center text-gray-100">
     <!-- Cover Page Section -->
-    <div class="cover-page">
-        <div class="content">
-            <h1>Welcome to Overthinker's Haven</h1>
-            <p>Store your thoughts without hesitation!</p>
-            <a href="/display" class="btn">View Blogs</a>
+    <div class="cover-page w-full h-screen flex items-center justify-center text-center px-4 relative">
+        <div class="content max-w-3xl mx-auto relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">Welcome to Overthinker's Haven</h1>
+            <p class="text-xl md:text-2xl mb-10 opacity-90">Store your thoughts without hesitation!</p>
+            <a href="/display" class="btn inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-4 rounded-full text-lg shadow-lg">
+                View Blogs
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </a>
         </div>
+        
+        <!-- Non-interactive particles background -->
+        <div id="particles-js" class="absolute inset-0 pointer-events-none"></div>
     </div>
-</body>
 
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize non-interactive particles
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 60,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    }
+                },
+                "opacity": {
+                    "value": 0.3,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 2,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": false // Disabled connections
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false // Disabled attraction
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": false // Disabled hover interaction
+                    },
+                    "onclick": {
+                        "enable": false // Disabled click interaction
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 0.5
+                        }
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
 </html>

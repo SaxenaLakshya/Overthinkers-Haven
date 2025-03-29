@@ -1,12 +1,38 @@
-<div class="header">
-    <h1>Welcome to Overthinker's Haven!</h1>
-    <p>Store your thoughts without hesitation!</p>
-</div>
+<header class="header w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-indigo-600 to-purple-500 text-white py-4 shadow-lg">
+    <div class="container mx-auto text-center">
+        <h1 class="text-3xl md:text-5xl font-bold tracking-wide drop-shadow-lg">Welcome to Overthinker's Haven!</h1>
+        <p class="text-lg md:text-xl opacity-90 mt-2">Store your thoughts without hesitation!</p>
+    </div>
+</header>
 
-<nav>
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/write">Write</a></li>
-        <li><a href="/display">Read</a></li>
+<nav class="w-full fixed top-16 left-0 z-50 bg-white/10 backdrop-blur-lg shadow-md">
+    <ul class="flex justify-center space-x-6 md:space-x-12 py-3">
+        <li>
+            <a href="/" class="nav-link relative text-lg font-semibold text-white px-4 py-2 rounded transition-all duration-300 hover:text-indigo-300 active:scale-95">Home</a>
+        </li>
+        <li>
+            <a href="/write" class="nav-link relative text-lg font-semibold text-white px-4 py-2 rounded transition-all duration-300 hover:text-indigo-300 active:scale-95">Write</a>
+        </li>
+        <li>
+            <a href="/display" class="nav-link relative text-lg font-semibold text-white px-4 py-2 rounded transition-all duration-300 hover:text-indigo-300 active:scale-95">Read</a>
+        </li>
     </ul>
 </nav>
+
+<style>
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -3px;
+        width: 0;
+        height: 2px;
+        background-color: #a78bfa;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+</style>

@@ -1,9 +1,9 @@
-<div class="footer">
-    <p>&copy; Overthinker's Haven <%= new Date().getFullYear() %>. All rights reserved.</p>
-    <div class="social-links">
-        <a href="https://www.linkedin.com/in/lakshya-saxena-704607260/" target="_blank">
-            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"
-                fill="currentColor">
+<footer class="footer w-full bg-gray-900/80 backdrop-blur-md text-gray-300 text-center py-6 mt-12 shadow-xl">
+    <p class="text-lg opacity-90">&copy; Overthinker's Haven <span id="year"></span>. All rights reserved.</p>
+    
+    <div class="social-links flex justify-center space-x-6 mt-4">
+        <a href="https://www.linkedin.com/in/lakshya-saxena-704607260/" target="_blank" class="social-link">
+            <svg class="social-icon hover:text-blue-400 transition-transform duration-300 transform hover:scale-110" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 
                 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-1.03 
                 0-1.866-.836-1.866-1.866s.836-1.866 1.866-1.866c1.029 0 1.866.836 
@@ -12,9 +12,8 @@
                 1.381-1.56 2.841-1.56 3.039 0 3.366 2.001 3.366 4.601v5.594z" />
             </svg>
         </a>
-        <a href="https://github.com/SaxenaLakshya" target="_blank">
-            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"
-                fill="currentColor">
+        <a href="https://github.com/SaxenaLakshya" target="_blank" class="social-link">
+            <svg class="social-icon hover:text-gray-400 transition-transform duration-300 transform hover:scale-110" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 .297c-6.63 0-12 5.373-12 12 
                 0 5.302 3.438 9.8 8.207 11.385.6.113.793-.258.793-.577 
                 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.333-1.755-1.333-1.755-1.089-.744.083-.729.083-.729 
@@ -31,4 +30,8 @@
             </svg>
         </a>
     </div>
-</div>
+</footer>
+
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
