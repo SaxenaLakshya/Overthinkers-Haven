@@ -20,6 +20,7 @@ function readJSON() {
     }
 }
 
+// Adding a new post
 function appendPost(newPost) {
     try {
         const data = fs.readFileSync('views/static/blogs.json', 'utf8')
