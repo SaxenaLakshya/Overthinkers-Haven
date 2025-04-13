@@ -69,7 +69,7 @@ app.post('/publish', (req, res) => {
     res.render('routes/write.ejs')
 })
 
-app.get('/display', (req, res) => {
+app.get('/read', (req, res) => {
     const blogs = readJSON()
     res.render('routes/display.ejs', { blogs: blogs })
 })
