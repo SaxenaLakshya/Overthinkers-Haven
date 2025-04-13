@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/favicon.jpg" type="image/jpg">
     <title>Jokes by Overthinker's Haven</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f8fafc;
+            background: linear-gradient(135deg, rgba(101, 116, 205, 0.1), rgba(155, 105, 200, 0.1));
         }
 
         .joke-container {
@@ -32,42 +33,83 @@
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 p-4">
-        <div class="max-w-2xl w-full joke-container bg-white rounded-xl shadow-lg overflow-hidden">
-            <!-- Header -->
-            <div class="bg-gradient-to-r from-purple-600 to-blue-500 p-6 text-center">
-                <h1 class="text-3xl md:text-4xl font-bold text-white">Today's Joke</h1>
-                <p class="text-purple-100 mt-2">Brought to you with ❤️</p>
+<body class="min-h-screen flex items-center justify-center p-4 relative">
+    <!-- Particles Background -->
+    <div id="particles-js" class="absolute inset-0 pointer-events-none z-0"></div>
+
+    <!-- Joke Card -->
+    <div class="max-w-2xl w-full joke-container bg-white rounded-xl shadow-lg overflow-hidden relative z-10">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-purple-600 to-blue-500 p-6 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-white">Today's Joke</h1>
+            <p class="text-purple-100 mt-2">Brought to you with ❤️</p>
+        </div>
+
+        <!-- Joke Content -->
+        <div class="p-8 md:p-10 space-y-6">
+            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                <p class="text-xl md:text-2xl font-semibold text-gray-800" id="setup">
+                    <%= content.setup %>
+                </p>
             </div>
 
-            <!-- Joke Content -->
-            <div class="p-8 md:p-10 space-y-6">
-                <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
-                    <p class="text-xl md:text-2xl font-semibold text-gray-800" id="setup">
-                        <%= content.setup %>
-                    </p>
-                </div>
-
-                <div class="flex justify-center">
-                    <div class="h-1 w-16 bg-purple-400 rounded-full"></div>
-                </div>
-
-                <div
-                    class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500 transform transition-all duration-300 hover:scale-[1.02]">
-                    <p class="text-xl md:text-2xl font-semibold text-purple-800" id="delivery">
-                        <%= content.delivery %>
-                    </p>
-                </div>
+            <div class="flex justify-center">
+                <div class="h-1 w-16 bg-purple-400 rounded-full"></div>
             </div>
 
-            <!-- Button Link -->
-            <div class="px-6 pb-6 text-center">
-                <a href="/joke"
-                    class="action-button inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold rounded-lg shadow-md hover:from-purple-600 hover:to-blue-600 transition-all">
-                    Get Another Joke
-                </a>
+            <div
+                class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500 transform transition-all duration-300 hover:scale-[1.02]">
+                <p class="text-xl md:text-2xl font-semibold text-purple-800" id="delivery">
+                    <%= content.delivery %>
+                </p>
             </div>
         </div>
+
+        <!-- Button Link -->
+        <div class="px-6 pb-6 text-center">
+            <a href="/joke"
+                class="action-button inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold rounded-lg shadow-md hover:from-purple-600 hover:to-blue-600 transition-all">
+                Get Another Joke
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize non-interactive particles
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 40 },
+                "color": { "value": "#9f7aea" },
+                "shape": { "type": "circle" },
+                "opacity": {
+                    "value": 0.3,
+                    "random": true,
+                    "anim": { "enable": true, "speed": 1 }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": { "enable": true, "speed": 2 }
+                },
+                "line_linked": { "enable": false },
+                "move": {
+                    "enable": true,
+                    "speed": 1,
+                    "direction": "none",
+                    "random": true
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": false },
+                    "onclick": { "enable": false },
+                    "resize": true
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
