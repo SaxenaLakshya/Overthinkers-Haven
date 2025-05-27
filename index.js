@@ -2,12 +2,22 @@ import bodyParser from "body-parser"
 import express from "express"
 import axios from "axios"
 import fs from "fs"
+import pg from "pg"
 
 
 // Important contants
 const app = express()
 const port = 3000
 const API_KEY = "https://v2.jokeapi.dev/joke/Programming,Dark,Spooky?type=twopart"
+const db = new pg.Client({
+    user: 'postgres',
+    password: '1234',
+    host: 'localhost',
+    port: 5432,
+    database: 'overthinker'
+})
+
+db.connect()
 
 
 // Functions to make life easy
@@ -45,6 +55,24 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Routes and other POST and GET stuff
 app.get('/', (req, res) => {
     res.render('routes/index.ejs')
+})
+
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body
+    const result = await db.query("SELECT email, password FROM users WHERE email=$1", [email])
+    console.log(result)
+    if (result.rowCount == 0) {
+        await db.query("INSERT INTO users (email, password) VALUES ($1, $2)", [email, password])
+        res.redirect("/read")
+    } else {
+        if (result.rows[0].password == password) {
+            console.log("Logged in successfully...")
+            res.redirect("/read")
+        } else {
+            console.log("Wrong password...")
+            res.redirect("/")
+        }
+    }
 })
 
 app.get('/write', (req, res) => {
