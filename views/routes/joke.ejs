@@ -30,15 +30,54 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
+        .age-modal {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
     </style>
 </head>
 
 <body class="min-h-screen flex items-center justify-center p-4 relative">
+    <!-- Age Verification Modal -->
+    <div id="ageModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay" style="display: none;">
+        <div class="age-modal bg-white rounded-xl shadow-2xl max-w-md w-full overflow-hidden">
+            <div class="bg-gradient-to-r from-purple-600 to-blue-500 p-6 text-center">
+                <h2 class="text-2xl font-bold text-white">Age Verification</h2>
+            </div>
+            <div class="p-6 space-y-4">
+                <p class="text-gray-700">
+                    This section contains jokes that may include profanity, sexual content, or adult humor.
+                    You must be 18 years or older to proceed.
+                </p>
+                <p class="font-semibold text-gray-800">
+                    Are you 18 years or older?
+                </p>
+            </div>
+            <div class="p-6 pt-0 flex justify-between space-x-4">
+                <button id="noBtn" class="action-button flex-1 px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-all">
+                    No, I'm under 18
+                </button>
+                <button id="yesBtn" class="action-button flex-1 px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all">
+                    Yes, I'm 18+
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Particles Background -->
     <div id="particles-js" class="absolute inset-0 pointer-events-none z-0"></div>
 
-    <!-- Joke Card -->
-    <div class="max-w-2xl w-full joke-container bg-white rounded-xl shadow-lg overflow-hidden relative z-10">
+    <!-- Joke Card (initially hidden) -->
+    <div id="jokeCard" class="max-w-2xl w-full joke-container bg-white rounded-xl shadow-lg overflow-hidden relative z-10" style="display: none;">
         <!-- Header -->
         <div class="bg-gradient-to-r from-purple-600 to-blue-500 p-6 text-center">
             <h1 class="text-3xl md:text-4xl font-bold text-white">Today's Joke</h1>
@@ -109,6 +148,60 @@
                 }
             }
         });
+
+        // Age verification logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const ageModal = document.getElementById('ageModal');
+            const jokeCard = document.getElementById('jokeCard');
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+
+            // Check if user has already verified age (using localStorage)
+            const isVerified = localStorage.getItem('ageVerified');
+            
+            if (!isVerified) {
+                // Show modal if not verified
+                ageModal.style.display = 'flex';
+            } else {
+                // Show joke card if already verified
+                jokeCard.style.display = 'block';
+            }
+
+            // Handle yes button click
+            yesBtn.addEventListener('click', function() {
+                localStorage.setItem('ageVerified', 'true');
+                ageModal.style.display = 'none';
+                jokeCard.style.display = 'block';
+            });
+
+            // Handle no button click
+            noBtn.addEventListener('click', function() {
+                window.location.href = '/read';
+            });
+
+            // Prevent closing modal by clicking outside
+            ageModal.addEventListener('click', function(e) {
+                if (e.target === ageModal) {
+                    // Optional: Add shake animation to indicate they need to make a choice
+                    const modalContent = ageModal.querySelector('.age-modal');
+                    modalContent.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        modalContent.style.animation = '';
+                    }, 500);
+                }
+            });
+        });
+
+        // Add shake animation for modal
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 

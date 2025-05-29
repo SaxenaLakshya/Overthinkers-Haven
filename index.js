@@ -3,12 +3,14 @@ import express from "express"
 import axios from "axios"
 import fs from "fs"
 import pg from "pg"
+import bcrypt from "bcrypt"
 
 
 // Important contants
 const app = express()
 const port = 3000
 const API_KEY = "https://v2.jokeapi.dev/joke/Programming,Dark,Spooky?type=twopart"
+const saltRounds = 10
 const db = new pg.Client({
     user: 'postgres',
     password: '1234',
@@ -62,10 +64,13 @@ app.post('/login', async (req, res) => {
     const result = await db.query("SELECT email, password FROM users WHERE email=$1", [email])
     console.log(result)
     if (result.rowCount == 0) {
-        await db.query("INSERT INTO users (email, password) VALUES ($1, $2)", [email, password])
+        const hashedPassword = await bcrypt.hash(password, saltRounds)
+        await db.query("INSERT INTO users (email, password) VALUES ($1, $2)", [email, hashedPassword])
+        console.log("registered the user successfully...")
         res.redirect("/read")
     } else {
-        if (result.rows[0].password == password) {
+        const match = await bcrypt.compare(password, result.rows[0].password)
+        if (match) {
             console.log("Logged in successfully...")
             res.redirect("/read")
         } else {
