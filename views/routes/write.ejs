@@ -11,43 +11,125 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, rgba(101, 116, 205, 0.1), rgba(155, 105, 200, 0.1));
+            background: linear-gradient(135deg, rgba(101, 116, 205, 0.05), rgba(155, 105, 200, 0.05));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
+
         .blog-form {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border-left: 4px solid #667eea;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(101, 116, 205, 0.15);
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
         }
+
+        .blog-form:hover {
+            box-shadow: 0 15px 35px rgba(101, 116, 205, 0.2);
+        }
+
         .title-input {
             border-bottom: 2px solid #e2e8f0;
             transition: all 0.3s ease;
+            background: transparent;
         }
+
         .title-input:focus {
             border-bottom-color: #667eea;
             outline: none;
+            background: rgba(102, 126, 234, 0.03);
         }
+
         .content-textarea {
             border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
+            min-height: 300px;
+            background: transparent;
         }
+
         .content-textarea:focus {
             border-color: #667eea;
             outline: none;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: rgba(102, 126, 234, 0.03);
         }
+
         .publish-btn {
             background: linear-gradient(135deg, #667eea, #9f7aea);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+
         .publish-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .publish-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0.13) 0%,
+                rgba(255, 255, 255, 0.13) 77%,
+                rgba(255, 255, 255, 0.5) 92%,
+                rgba(255, 255, 255, 0.0) 100%
+            );
+            transform: rotate(30deg);
+        }
+
+        .publish-btn:hover::after {
+            animation: shine 1.5s ease;
+        }
+
+        @keyframes shine {
+            100% {
+                left: 120%;
+            }
+        }
+
+        .floating-label {
+            position: absolute;
+            left: 12px;
+            top: 16px;
+            color: #a0aec0;
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .title-input:focus + .floating-label,
+        .title-input:not(:placeholder-shown) + .floating-label,
+        .content-textarea:focus + .floating-label,
+        .content-textarea:not(:placeholder-shown) + .floating-label {
+            top: -10px;
+            left: 10px;
+            font-size: 0.75rem;
+            color: #667eea;
+            background: white;
+            padding: 0 5px;
+        }
+
+        .input-container {
+            position: relative;
+            margin-top: 1.5rem;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 2rem 0;
         }
     </style>
 </head>
 
-<body class="min-h-screen">
+<body>
     <!-- Particles Background -->
     <div id="particles-js" class="fixed inset-0 pointer-events-none z-0"></div>
     
@@ -55,33 +137,38 @@
     <%- include("../static/header.ejs") %>
 
     <!-- Main Content -->
-    <main class="relative z-10 container mx-auto px-4 py-12 max-w-3xl">
-        <div class="blog-form p-8">
-            <form action="/publish" method="post">
-                <div class="title mb-8">
-                    <label for="title" class="block text-gray-600 mb-2">Title</label>
-                    <input class="title-input w-full px-4 py-3 text-2xl font-semibold text-gray-800 bg-transparent" 
-                           type="text" 
-                           name="title" 
-                           id="title" 
-                           placeholder="What's on your mind?">
-                </div>
+    <main class="relative z-10">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <div class="blog-form p-8 md:p-10">
+                <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Compose Your Thoughts</h1>
                 
-                <div class="content mb-8">
-                    <label for="content" class="block text-gray-600 mb-2">Your Thoughts</label>
-                    <textarea class="content-textarea w-full px-4 py-3 text-gray-700 rounded-lg" 
-                              rows="10" 
-                              name="content" 
-                              placeholder="Pour out your thoughts here..."></textarea>
-                </div>
-                
-                <div class="publish text-right">
-                    <button type="submit" 
-                            class="publish-btn text-white font-semibold px-8 py-3 rounded-lg">
-                        Save Your Thoughts
-                    </button>
-                </div>
-            </form>
+                <form action="/publish" method="post">
+                    <div class="input-container mb-10">
+                        <input class="title-input w-full px-4 py-3 text-2xl font-semibold text-gray-800" 
+                               type="text" 
+                               name="title" 
+                               id="title" 
+                               placeholder=" ">
+                        <label for="title" class="floating-label">What's on your mind?</label>
+                    </div>
+                    
+                    <div class="input-container mb-10">
+                        <textarea class="content-textarea w-full px-4 py-3 text-gray-700 rounded-lg" 
+                                  rows="12" 
+                                  name="content" 
+                                  id="content"
+                                  placeholder=" "></textarea>
+                        <label for="content" class="floating-label">Pour out your thoughts here...</label>
+                    </div>
+                    
+                    <div class="publish text-center">
+                        <button type="submit" 
+                                class="publish-btn text-white font-semibold px-10 py-3 rounded-lg text-lg">
+                            Save Your Thoughts
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </main>
 
@@ -93,11 +180,11 @@
         // Initialize non-interactive particles
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 40 },
+                "number": { "value": 50 },
                 "color": { "value": "#9f7aea" },
                 "shape": { "type": "circle" },
                 "opacity": {
-                    "value": 0.3,
+                    "value": 0.2,
                     "random": true,
                     "anim": { "enable": true, "speed": 1 }
                 },
@@ -106,7 +193,13 @@
                     "random": true,
                     "anim": { "enable": true, "speed": 2 }
                 },
-                "line_linked": { "enable": false },
+                "line_linked": { 
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#9f7aea",
+                    "opacity": 0.1,
+                    "width": 1
+                },
                 "move": {
                     "enable": true,
                     "speed": 1,
@@ -122,6 +215,18 @@
                     "resize": true
                 }
             }
+        });
+
+        // Add floating label functionality
+        document.querySelectorAll('.title-input, .content-textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.nextElementSibling.style.color = '#667eea';
+            });
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.nextElementSibling.style.color = '#a0aec0';
+                }
+            });
         });
     </script>
 </body>
