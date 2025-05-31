@@ -4,6 +4,7 @@ import axios from "axios"
 import fs from "fs"
 import pg from "pg"
 import bcrypt from "bcrypt"
+import env from "dotenv"
 
 
 // Important contants
@@ -11,12 +12,13 @@ const app = express()
 const port = 3000
 const API_KEY = "https://v2.jokeapi.dev/joke/Programming,Dark,Spooky?type=twopart"
 const saltRounds = 10
+env.config()
 const db = new pg.Client({
-    user: 'postgres',
-    password: '1234',
-    host: 'localhost',
-    port: 5432,
-    database: 'overthinker'
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME
 })
 
 db.connect()
