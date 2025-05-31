@@ -56,11 +56,32 @@ app.use(express.static('views'))
 app.use(bodyParser.urlencoded({ extended: true }))
 
 
-// Routes and other POST and GET stuff
+// GET Routes
 app.get('/', (req, res) => {
     res.render('routes/index.ejs')
 })
 
+app.get('/write', (req, res) => {
+    res.render("routes/write.ejs")
+})
+
+app.get('/read', (req, res) => {
+    const blogs = readJSON()
+    res.render('routes/display.ejs', { blogs: blogs })
+})
+
+app.get("/joke", async (req, res) => {
+    try {
+        const result = await axios.get(API_KEY)
+        console.log(result.data)
+        res.render("routes/joke.ejs", { content: result.data })
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
+// POST Routes
 app.post('/login', async (req, res) => {
     const { email, password } = req.body
     const result = await db.query("SELECT email, password FROM users WHERE email=$1", [email])
@@ -82,10 +103,6 @@ app.post('/login', async (req, res) => {
     }
 })
 
-app.get('/write', (req, res) => {
-    res.render("routes/write.ejs")
-})
-
 app.post('/publish', (req, res) => {
     const { title, content } = req.body
     const currentDate = new Date();
@@ -102,21 +119,6 @@ app.post('/publish', (req, res) => {
     }
     appendPost(newPost)
     res.render('routes/write.ejs')
-})
-
-app.get('/read', (req, res) => {
-    const blogs = readJSON()
-    res.render('routes/display.ejs', { blogs: blogs })
-})
-
-app.get("/joke", async (req, res) => {
-    try {
-        const result = await axios.get(API_KEY)
-        console.log(result.data)
-        res.render("routes/joke.ejs", { content: result.data })
-    } catch (error) {
-        console.log(error)
-    }
 })
 
 
