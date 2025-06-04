@@ -9,7 +9,7 @@ import env from "dotenv"
 // Important contants
 const app = express()
 const port = 3000
-const API_KEY = "https://v2.jokeapi.dev/joke/Programming,Dark,Spooky?type=twopart"
+const API_KEY = "https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Dark,Pun,Spooky,Christmas?blacklistFlags=religious,racist&type=twopart"
 const saltRounds = 10
 env.config()
 const db = new pg.Client({
@@ -45,7 +45,6 @@ app.get('/read', async (req, res) => {
 app.get("/joke", async (req, res) => {
     try {
         const result = await axios.get(API_KEY)
-        console.log(result.data)
         res.render("routes/joke.ejs", { content: result.data })
     } catch (error) {
         console.log(error)
