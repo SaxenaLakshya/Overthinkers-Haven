@@ -4,82 +4,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>No Blogs Available</title>
+    <title>No Blogs Available - Yay for Peaceful Minds!</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, rgba(101, 116, 205, 0.1), rgba(155, 105, 200, 0.1));
+            background: linear-gradient(135deg, rgba(101, 116, 205, 0.05), rgba(155, 105, 200, 0.05));
         }
+
         .no-blogs-container {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border-left: 4px solid #667eea;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(101, 116, 205, 0.15);
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
         }
+
+        .no-blogs-container:hover {
+            box-shadow: 0 15px 35px rgba(101, 116, 205, 0.2);
+        }
+
         .cta-button {
             background: linear-gradient(135deg, #667eea, #9f7aea);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
-        ul li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        ul li:before {
-            content: "•";
-            color: #9f7aea;
+
+        .cta-button::after {
+            content: '';
             position: absolute;
-            left: 0;
-            font-weight: bold;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to right,
+                    rgba(255, 255, 255, 0.13) 0%,
+                    rgba(255, 255, 255, 0.13) 77%,
+                    rgba(255, 255, 255, 0.5) 92%,
+                    rgba(255, 255, 255, 0.0) 100%);
+            transform: rotate(30deg);
+        }
+
+        .cta-button:hover::after {
+            animation: shine 1.5s ease;
+        }
+
+        @keyframes shine {
+            100% {
+                left: 120%;
+            }
+        }
+
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
     </style>
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen flex items-center justify-center p-4">
     <!-- Particles Background -->
     <div id="particles-js" class="fixed inset-0 pointer-events-none z-0"></div>
-    
+
     <!-- Main Content -->
-    <div class="relative z-10 container mx-auto px-4 py-12 max-w-3xl">
-        <div class="no-blogs-container p-8 md:p-10">
+    <div class="relative z-10 max-w-3xl w-full">
+        <div class="no-blogs-container p-8 md:p-10 text-center">
             <div class="message text-gray-800">
-                <h1 class="text-3xl md:text-4xl font-bold mb-6 text-indigo-800">Your Mind is Full, But This Page is Empty? 🤔</h1>
-                <p class="text-lg mb-4">Overthinking again? Great! Now let's put those thoughts to good use. ✍️</p>
-                <p class="text-lg mb-6">Journaling your thoughts isn't just writing, it's mental decluttering. Less stress, more clarity. A win-win, right?</p>
-
-                <div class="mb-8">
-                    <h2 class="text-2xl font-semibold mb-4 text-indigo-700">Why Should You Write?</h2>
-                    <ul class="space-y-2 mb-6">
-                        <li>Because your brain has too many tabs open. 🧠💭</li>
-                        <li>Because keeping thoughts inside only makes them louder. 📢</li>
-                        <li>Because 3 AM overthinking isn't the best therapist. 🌙💭</li>
-                        <li>Because writing down your feelings makes them easier to understand. 🔍</li>
-                    </ul>
+                <div class="bounce inline-block mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-indigo-500" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
                 </div>
 
-                <div class="mb-8">
-                    <h2 class="text-2xl font-semibold mb-4 text-indigo-700">What Can You Write About?</h2>
-                    <ul class="space-y-2 mb-6">
-                        <li>Your deepest thoughts (or that awkward thing from 5 years ago). 😬</li>
-                        <li>The random ideas that pop into your head at the worst times. 💡</li>
-                        <li>Things you wish you could say out loud but don't. 🤐</li>
-                        <li>Anything. Seriously, just start typing. 🚀</li>
-                    </ul>
+                <h1 class="text-3xl md:text-4xl font-bold mb-6 text-indigo-700">Hooray! No Overthinking Detected! 🎉
+                </h1>
+
+                <p class="text-xl mb-6 text-indigo-600">Looks like everyone's mind is peacefully quiet today. What a
+                    wonderful feeling!</p>
+
+                <div class="bg-indigo-50 rounded-xl p-6 mb-8 border border-indigo-100">
+                    <p class="text-lg mb-4">✨ <span class="font-semibold">Celebrate this moment!</span> A calm mind is a
+                        rare treasure in our busy world.</p>
+                    <p class="text-lg">Enjoy this mental peace while it lasts - you've earned it!</p>
                 </div>
 
-                <p class="text-lg mb-8">Think of this blog as your mental time capsule—for you, by you. So grab a coffee ☕, take a deep breath, and start writing. Your future self will thank you. 💙</p>
+                <div class="mb-8 text-left">
+                    <h2 class="text-2xl font-semibold mb-4 text-center text-indigo-700">While You're Feeling Light...
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-purple-50 p-5 rounded-lg">
+                            <h3 class="font-bold text-purple-700 mb-2">🌼 Things to Appreciate:</h3>
+                            <ul class="space-y-2 text-purple-600">
+                                <li class="flex items-start">
+                                    <span class="mr-2">☕</span> That first sip of your favorite drink
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">🌞</span> Sunshine streaming through your window
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">😌</span> The absence of that nagging "what if" thought
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-blue-50 p-5 rounded-lg">
+                            <h3 class="font-bold text-blue-700 mb-2">🌈 Happy Possibilities:</h3>
+                            <ul class="space-y-2 text-blue-600">
+                                <li class="flex items-start">
+                                    <span class="mr-2">📝</span> Write about something that makes you smile
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">🎨</span> Create something just for fun
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">🧘</span> Enjoy this rare overthinking-free moment
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-lg mb-8">If you do feel inspired to share some happy thoughts, we'd love to read them!
+                    But no pressure - we're just glad you're feeling good. 😊</p>
 
                 <div class="text-center">
-                    <a href="/write" class="cta-button inline-block text-white font-semibold px-8 py-3 rounded-lg text-lg">
-                        Start Writing Now
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    <a href="/write"
+                        class="cta-button inline-block text-white font-semibold px-8 py-3 rounded-lg text-lg">
+                        Share Some Joy
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
                         </svg>
                     </a>
                 </div>
@@ -92,11 +167,11 @@
         // Initialize non-interactive particles
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 40 },
+                "number": { "value": 50 },
                 "color": { "value": "#9f7aea" },
                 "shape": { "type": "circle" },
                 "opacity": {
-                    "value": 0.3,
+                    "value": 0.2,
                     "random": true,
                     "anim": { "enable": true, "speed": 1 }
                 },
@@ -105,7 +180,13 @@
                     "random": true,
                     "anim": { "enable": true, "speed": 2 }
                 },
-                "line_linked": { "enable": false },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#9f7aea",
+                    "opacity": 0.1,
+                    "width": 1
+                },
                 "move": {
                     "enable": true,
                     "speed": 1,
@@ -124,4 +205,5 @@
         });
     </script>
 </body>
+
 </html>

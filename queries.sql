@@ -4,3 +4,9 @@ CREATE TABLE users (
 	password VARCHAR(100)
 );
 
+CREATE TABLE posts (
+	id SERIAL,
+	title TEXT,
+	content TEXT,
+	date VARCHAR(20)
+);

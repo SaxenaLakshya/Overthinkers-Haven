@@ -42,11 +42,11 @@
 
     <!-- Main Content -->
     <main class="relative z-10 container mx-auto px-4 py-12 max-w-3xl">
-        <% if (blogs && blogs.posts && blogs.posts.length > 0) { %>
+        <% if (blogs && blogs.length > 0) { %>
             <h1 class="text-4xl font-bold text-gray-800 mb-10 text-center">Your Thoughts Archive</h1>
             
             <div class="space-y-8">
-                <% blogs.posts.reverse().forEach(post => { %>
+                <% blogs.reverse().forEach(post => { %>
                     <div class="blog-card p-8">
                         <div class="title">
                             <div class="title-divider w-16"></div>
