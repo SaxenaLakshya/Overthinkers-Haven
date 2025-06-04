@@ -13,6 +13,7 @@
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, rgba(101, 116, 205, 0.1), rgba(155, 105, 200, 0.1));
         }
+
         .blog-card {
             background: white;
             border-radius: 12px;
@@ -20,11 +21,13 @@
             transition: all 0.3s ease;
             border-left: 4px solid transparent;
         }
+
         .blog-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
             border-left-color: #667eea;
         }
+
         .title-divider {
             height: 2px;
             background: linear-gradient(90deg, #667eea, #9f7aea);
@@ -36,81 +39,90 @@
 <body class="min-h-screen">
     <!-- Particles Background -->
     <div id="particles-js" class="fixed inset-0 pointer-events-none z-0"></div>
-    
+
     <!-- Header -->
     <%- include("../static/header.ejs") %>
 
-    <!-- Main Content -->
-    <main class="relative z-10 container mx-auto px-4 py-12 max-w-3xl">
-        <% if (blogs && blogs.length > 0) { %>
-            <h1 class="text-4xl font-bold text-gray-800 mb-10 text-center">Your Thoughts Archive</h1>
-            
-            <div class="space-y-8">
-                <% blogs.reverse().forEach(post => { %>
-                    <div class="blog-card p-8">
-                        <div class="title">
-                            <div class="title-divider w-16"></div>
-                            <h2 class="text-2xl font-semibold text-gray-800">
-                                <%= post.title %>
-                            </h2>
-                        </div>
-                        
-                        <div class="content mt-4 text-gray-600 leading-relaxed">
-                            <p class="whitespace-pre-line"><%= post.content %></p>
-                        </div>
-                        
-                        <div class="post-date mt-6 text-sm text-gray-400 flex justify-end items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                            <%= post.date %>
-                        </div>
-                    </div>
-                <% }); %>
-            </div>
-        <% } else { %>
-            <%- include('../static/error.ejs') %>
-        <% } %>
-    </main>
+        <!-- Main Content -->
+        <main class="relative z-10 container mx-auto px-4 py-12 max-w-3xl">
+            <% if (blogs && blogs.length> 0) { %>
+                <h1 class="text-4xl font-bold text-gray-800 mb-10 text-center">Today's Thoughts Archive</h1>
 
-    <!-- Footer -->
-    <%- include('../static/footer.ejs') %>
+                <div class="space-y-8">
+                    <% blogs.reverse().forEach(post=> { %>
+                        <div class="blog-card p-8">
+                            <div class="title">
+                                <div class="title-divider w-16"></div>
+                                <p class="text-sm text-indigo-500 font-medium mb-1">
+                                    Someone from <%= post.city || "an unknown place" %> shared:
+                                </p>
+                                <h2 class="text-2xl font-semibold text-gray-800">
+                                    <%= post.title %>
+                                </h2>
+                            </div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        // Initialize non-interactive particles
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 40 },
-                "color": { "value": "#9f7aea" },
-                "shape": { "type": "circle" },
-                "opacity": {
-                    "value": 0.3,
-                    "random": true,
-                    "anim": { "enable": true, "speed": 1 }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": { "enable": true, "speed": 2 }
-                },
-                "line_linked": { "enable": false },
-                "move": {
-                    "enable": true,
-                    "speed": 1,
-                    "direction": "none",
-                    "random": true
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": { "enable": false },
-                    "onclick": { "enable": false },
-                    "resize": true
-                }
-            }
-        });
-    </script>
+                            <div class="content mt-4 text-gray-600 leading-relaxed">
+                                <p class="whitespace-pre-line">
+                                    <%= post.content %>
+                                </p>
+                            </div>
+
+                            <div class="post-date mt-6 text-sm text-gray-400 flex justify-end items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <%= post.date %>
+                            </div>
+                        </div>
+
+                        <% }); %>
+                </div>
+                <% } else { %>
+                    <%- include('../static/error.ejs') %>
+                        <% } %>
+        </main>
+
+        <!-- Footer -->
+        <%- include('../static/footer.ejs') %>
+
+            <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+            <script>
+                // Initialize non-interactive particles
+                particlesJS("particles-js", {
+                    "particles": {
+                        "number": { "value": 40 },
+                        "color": { "value": "#9f7aea" },
+                        "shape": { "type": "circle" },
+                        "opacity": {
+                            "value": 0.3,
+                            "random": true,
+                            "anim": { "enable": true, "speed": 1 }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": { "enable": true, "speed": 2 }
+                        },
+                        "line_linked": { "enable": false },
+                        "move": {
+                            "enable": true,
+                            "speed": 1,
+                            "direction": "none",
+                            "random": true
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": { "enable": false },
+                            "onclick": { "enable": false },
+                            "resize": true
+                        }
+                    }
+                });
+            </script>
 </body>
+
 </html>

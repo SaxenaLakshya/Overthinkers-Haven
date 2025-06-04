@@ -10,3 +10,10 @@ CREATE TABLE posts (
 	content TEXT,
 	date VARCHAR(20)
 );
+
+ALTER TABLE posts
+ADD COLUMN city VARCHAR(50);
+
+DELETE FROM posts
+WHERE id != 1 AND id != 2;
+

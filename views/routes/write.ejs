@@ -74,13 +74,11 @@
             left: -60%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(
-                to right,
-                rgba(255, 255, 255, 0.13) 0%,
-                rgba(255, 255, 255, 0.13) 77%,
-                rgba(255, 255, 255, 0.5) 92%,
-                rgba(255, 255, 255, 0.0) 100%
-            );
+            background: linear-gradient(to right,
+                    rgba(255, 255, 255, 0.13) 0%,
+                    rgba(255, 255, 255, 0.13) 77%,
+                    rgba(255, 255, 255, 0.5) 92%,
+                    rgba(255, 255, 255, 0.0) 100%);
             transform: rotate(30deg);
         }
 
@@ -103,10 +101,10 @@
             pointer-events: none;
         }
 
-        .title-input:focus + .floating-label,
-        .title-input:not(:placeholder-shown) + .floating-label,
-        .content-textarea:focus + .floating-label,
-        .content-textarea:not(:placeholder-shown) + .floating-label {
+        .title-input:focus+.floating-label,
+        .title-input:not(:placeholder-shown)+.floating-label,
+        .content-textarea:focus+.floating-label,
+        .content-textarea:not(:placeholder-shown)+.floating-label {
             top: -10px;
             left: 10px;
             font-size: 0.75rem;
@@ -132,102 +130,104 @@
 <body>
     <!-- Particles Background -->
     <div id="particles-js" class="fixed inset-0 pointer-events-none z-0"></div>
-    
+
     <!-- Header -->
     <%- include("../static/header.ejs") %>
 
-    <!-- Main Content -->
-    <main class="relative z-10">
-        <div class="container mx-auto px-4 max-w-3xl">
-            <div class="blog-form p-8 md:p-10">
-                <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Compose Your Thoughts</h1>
-                
-                <form action="/publish" method="post">
-                    <div class="input-container mb-10">
-                        <input class="title-input w-full px-4 py-3 text-2xl font-semibold text-gray-800" 
-                               type="text" 
-                               name="title" 
-                               id="title" 
-                               placeholder=" ">
-                        <label for="title" class="floating-label">What's on your mind?</label>
-                    </div>
-                    
-                    <div class="input-container mb-10">
-                        <textarea class="content-textarea w-full px-4 py-3 text-gray-700 rounded-lg" 
-                                  rows="12" 
-                                  name="content" 
-                                  id="content"
-                                  placeholder=" "></textarea>
-                        <label for="content" class="floating-label">Pour out your thoughts here...</label>
-                    </div>
-                    
-                    <div class="publish text-center">
-                        <button type="submit" 
+        <!-- Main Content -->
+        <main class="relative z-10">
+            <div class="container mx-auto px-4 max-w-3xl">
+                <div class="blog-form p-8 md:p-10">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Compose Your Thoughts</h1>
+
+                    <form action="/publish" method="post">
+                        <div class="input-container mb-10">
+                            <input class="title-input w-full px-4 py-3 text-lg font-medium text-gray-800" type="text"
+                                name="city" id="city" placeholder=" ">
+                            <label for="city" class="floating-label">Where are you writing from?</label>
+                        </div>
+
+                        <div class="input-container mb-10">
+                            <input class="title-input w-full px-4 py-3 text-2xl font-semibold text-gray-800" type="text"
+                                name="title" id="title" placeholder=" ">
+                            <label for="title" class="floating-label">What's on your mind?</label>
+                        </div>
+
+                        <div class="input-container mb-10">
+                            <textarea class="content-textarea w-full px-4 py-3 text-gray-700 rounded-lg" rows="12"
+                                name="content" id="content" placeholder=" "></textarea>
+                            <label for="content" class="floating-label">Pour out your thoughts here...</label>
+                        </div>
+
+                        <div class="publish text-center">
+                            <button type="submit"
                                 class="publish-btn text-white font-semibold px-10 py-3 rounded-lg text-lg">
-                            Save Your Thoughts
-                        </button>
-                    </div>
-                </form>
+                                Share Your Thoughts
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
 
-    <!-- Footer -->
-    <%- include("../static/footer.ejs") %>
+        <!-- Footer -->
+        <%- include("../static/footer.ejs") %>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        // Initialize non-interactive particles
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 50 },
-                "color": { "value": "#9f7aea" },
-                "shape": { "type": "circle" },
-                "opacity": {
-                    "value": 0.2,
-                    "random": true,
-                    "anim": { "enable": true, "speed": 1 }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": { "enable": true, "speed": 2 }
-                },
-                "line_linked": { 
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#9f7aea",
-                    "opacity": 0.1,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 1,
-                    "direction": "none",
-                    "random": true
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": { "enable": false },
-                    "onclick": { "enable": false },
-                    "resize": true
-                }
-            }
-        });
+            <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+            <script>
+                // Initialize non-interactive particles
+                particlesJS("particles-js", {
+                    "particles": {
+                        "number": { "value": 50 },
+                        "color": { "value": "#9f7aea" },
+                        "shape": { "type": "circle" },
+                        "opacity": {
+                            "value": 0.2,
+                            "random": true,
+                            "anim": { "enable": true, "speed": 1 }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": { "enable": true, "speed": 2 }
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#9f7aea",
+                            "opacity": 0.1,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 1,
+                            "direction": "none",
+                            "random": true
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": { "enable": false },
+                            "onclick": { "enable": false },
+                            "resize": true
+                        }
+                    }
+                });
 
-        // Add floating label functionality
-        document.querySelectorAll('.title-input, .content-textarea').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.nextElementSibling.style.color = '#667eea';
-            });
-            input.addEventListener('blur', function() {
-                if (!this.value) {
-                    this.nextElementSibling.style.color = '#a0aec0';
-                }
-            });
-        });
-    </script>
+                // Add floating label functionality
+                document.querySelectorAll('.title-input, .content-textarea').forEach(input => {
+                    input.addEventListener('focus', function () {
+                        this.nextElementSibling.style.color = '#667eea';
+                    });
+                    input.addEventListener('blur', function () {
+                        if (!this.value) {
+                            this.nextElementSibling.style.color = '#a0aec0';
+                        }
+                    });
+                });
+            </script>
 </body>
+
 </html>

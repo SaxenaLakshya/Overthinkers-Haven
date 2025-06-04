@@ -38,7 +38,7 @@ app.get('/write', (req, res) => {
 })
 
 app.get('/read', async (req, res) => {
-    const result = await db.query("SELECT title, content, date FROM posts")
+    const result = await db.query("SELECT title, content, date, city FROM posts")
     res.render('routes/display.ejs', { blogs: result.rows })
 })
 
@@ -75,15 +75,15 @@ app.post('/login', async (req, res) => {
 })
 
 app.post('/publish', async (req, res) => {
-    const { title, content } = req.body
+    const { title, content, city } = req.body
     const currentDate = new Date();
-    const date = currentDate.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
+    const date = new Date().toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
     });
 
-    await db.query("INSERT INTO posts (title, content, date) VALUES ($1,$2,$3)", [title, content, date])
+    await db.query("INSERT INTO posts (title, content, date, city) VALUES ($1,$2,$3,$4)", [title, content, date, city])
     console.log("Post added successfully!")
 
     res.render('routes/write.ejs')
@@ -92,5 +92,5 @@ app.post('/publish', async (req, res) => {
 
 // Going Live!
 app.listen(port, () => {
-    console.log(`Your app is running on http://localhost:${port}.`)
+    console.log(`Your app is running on http://localhost:${port}`)
 })
