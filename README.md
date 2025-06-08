@@ -83,7 +83,7 @@ Follow these steps to run the project on your local machine:
 1. **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/yourusername/overthinkers-haven.git
+    git clone https://github.com/SaxenaLakshya/overthinkers-haven.git
     cd overthinkers-haven
     ```
 
