@@ -56,7 +56,6 @@ app.get("/joke", async (req, res) => {
 app.post('/login', async (req, res) => {
     const { email, password } = req.body
     const result = await db.query("SELECT email, password FROM users WHERE email=$1", [email])
-    console.log(result)
     if (result.rowCount == 0) {
         const hashedPassword = await bcrypt.hash(password, saltRounds)
         await db.query("INSERT INTO users (email, password) VALUES ($1, $2)", [email, hashedPassword])
