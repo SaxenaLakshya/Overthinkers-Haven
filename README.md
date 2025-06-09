@@ -1,7 +1,8 @@
 # 🧠 <a href="https://overthinkers-haven.onrender.com/" tagret="_blank">Overthinker's Haven</a>
 
 Welcome to **Overthinker's Haven** — a cozy place for introverts, thinkers, and overthinkers to drop their thoughts and read others’.  
-Minimal, expressive, and interactive — just like your favorite diary but online.
+Minimal, expressive, and interactive — just like your favorite diary but online. Deployed on **Render**. Since the application falls under *Free* tier, it might take more than minute to load.
+Follow the link: https://overthinkers-haven.onrender.com/
 
 ---
 
