@@ -46,7 +46,7 @@ Minimal, expressive, and interactive — just like your favorite diary but onlin
 
 ## 📈 Future Goals
 
-- [ ] 🚀 **Deploy the Application**  
+- [x] 🚀 **Deploy the Application**  
   Host the frontend and backend on a platform like Render, Vercel, or Railway.
 
 - [ ] 🔐 **Login with Google**  
@@ -70,10 +70,10 @@ Minimal, expressive, and interactive — just like your favorite diary but onlin
 - [ ] 🧪 **Testing & CI/CD**  
   Add Jest-based unit tests and automate deployment using GitHub Actions.
 
-- [ ] 📱 **Mobile Optimization**  
+- [x] 📱 **Mobile Optimization**  
   Ensure smooth usage and UI on all screen sizes.
 
-- [ ] 📊 **Admin Dashboard (optional)**  
+- [ ] 📊 **Admin Dashboard**  
   For post moderation and user metrics.
 ---
 
@@ -109,7 +109,7 @@ Follow these steps to run the project on your local machine:
 4. **Start the Application:**
 
     ```bash
-    npm start
+    nodemon localServer.js
     ```
 
 5. **Visit in Browser:**
@@ -125,6 +125,5 @@ This project uses the following public API:
 
 - **[JokeAPI – Official Joke API](https://jokeapi.dev/)**
   - Used to fetch random **adult jokes**
-  - Supports filtering by categories, safe mode, NSFW, and more
   - The app asks for age confirmation before displaying content
   - If the user is not an adult, joke access is blocked via local storage
