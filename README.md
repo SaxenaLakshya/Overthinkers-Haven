@@ -30,16 +30,17 @@ Minimal, expressive, and interactive — just like your favorite diary but onlin
 
 ## 🧰 Tech Stack
 
-| Tech           | Usage                                 |
-|----------------|---------------------------------------|
-| **Node.js**    | Backend runtime                       |
-| **Express.js** | Server framework                      |
-| **PostgreSQL** | Database (self-hosted or local setup) |
-| **Tailwind CSS** | Styling with utility classes         |
-| **EJS**        | Server-side rendering templates       |
-| **Axios**      | API calls (for jokes)                 |
-| **Bcrypt**     | Secure password hashing               |
-| **JokeAPI**    | For fetching adult jokes              |
+| Tech             | Usage                               |
+| ---------------- | ----------------------------------- |
+| **Node.js**      | Backend runtime                     |
+| **Express.js**   | Server framework                    |
+| **Supabase**     | Hosted PostgreSQL DB for deployment |
+| **PostgreSQL**   | Local database setup for testing    |
+| **Tailwind CSS** | Styling with utility classes        |
+| **EJS**          | Server-side rendering templates     |
+| **Axios**        | API calls (for adult jokes)         |
+| **Bcrypt**       | Secure password hashing             |
+| **JokeAPI**      | External joke content via Axios     |
 
 ---
 
