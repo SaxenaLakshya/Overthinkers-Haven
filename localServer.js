@@ -12,6 +12,8 @@ const port = 3000
 const API_KEY = "https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Dark,Pun,Spooky,Christmas?blacklistFlags=religious,racist&type=twopart"
 const saltRounds = 10
 env.config()
+
+// Connecting to the Local PostgreSQL Database
 const db = new pg.Client({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
