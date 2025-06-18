@@ -35,6 +35,10 @@ app.get('/', (req, res) => {
     res.render('routes/index.ejs')
 })
 
+app.get('/admin', (req, res) =>{
+    res.render('routes/admin.ejs')
+})
+
 app.get('/write', (req, res) => {
     res.render("routes/write.ejs")
 })
@@ -57,21 +61,19 @@ app.get("/joke", async (req, res) => {
 // POST Routes
 app.post('/login', async (req, res) => {
     const { email, password } = req.body
-    const result = await db.query("SELECT email, password FROM users WHERE email=$1", [email])
-    if (result.rowCount == 0) {
-        const hashedPassword = await bcrypt.hash(password, saltRounds)
-        await db.query("INSERT INTO users (email, password) VALUES ($1, $2)", [email, hashedPassword])
-        console.log("registered the user successfully...")
-        res.redirect("/read")
+    const result = await db.query("SELECT email, password FROM users WHERE email=$1 LIMIT 1", [email])
+    if (result.rowCount <  1) {
+        res.redirect("/register")
     } else {
-        const match = await bcrypt.compare(password, result.rows[0].password)
-        if (match) {
-            console.log("Logged in successfully...")
-            res.redirect("/read")
-        } else {
-            console.log("Wrong password...")
-            res.redirect("/")
-        }
+        bcrypt.compare(password, result.rows[0].password, (err, same) => {
+            if (same) {
+                console.log("Login Successful!")
+                res.redirect("/read")
+            } else {
+                console.log("Wrong Password!")
+                res.redirect("/")
+            }
+        })
     }
 })
 

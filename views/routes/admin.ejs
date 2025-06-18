@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/favicon.jpg" type="image/jpg">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, rgba(101, 116, 205, 0.05), rgba(155, 105, 200, 0.05));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(101, 116, 205, 0.15);
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .admin-card:hover {
+            box-shadow: 0 15px 35px rgba(101, 116, 205, 0.2);
+        }
+
+        .input-field {
+            border-bottom: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .input-field:focus {
+            border-bottom-color: #667eea;
+            outline: none;
+            background: rgba(102, 126, 234, 0.03);
+        }
+
+        .content-textarea {
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            min-height: 150px;
+            background: transparent;
+        }
+
+        .content-textarea:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: rgba(102, 126, 234, 0.03);
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #667eea, #9f7aea);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .action-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to right,
+                    rgba(255, 255, 255, 0.13) 0%,
+                    rgba(255, 255, 255, 0.13) 77%,
+                    rgba(255, 255, 255, 0.5) 92%,
+                    rgba(255, 255, 255, 0.0) 100%);
+            transform: rotate(30deg);
+        }
+
+        .action-btn:hover::after {
+            animation: shine 1.5s ease;
+        }
+
+        .danger-btn {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+        }
+
+        .danger-btn:hover {
+            box-shadow: 0 10px 20px rgba(229, 62, 62, 0.3);
+        }
+
+        @keyframes shine {
+            100% {
+                left: 120%;
+            }
+        }
+
+        .floating-label {
+            position: absolute;
+            left: 12px;
+            top: 16px;
+            color: #a0aec0;
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .input-field:focus+.floating-label,
+        .input-field:not(:placeholder-shown)+.floating-label,
+        .content-textarea:focus+.floating-label,
+        .content-textarea:not(:placeholder-shown)+.floating-label {
+            top: -10px;
+            left: 10px;
+            font-size: 0.75rem;
+            color: #667eea;
+            background: white;
+            padding: 0 5px;
+        }
+
+        .input-container {
+            position: relative;
+            margin-top: 1.5rem;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem 0;
+        }
+
+        .section-title {
+            color: #667eea;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .confirmation-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <%- include("../static/header.ejs") %>
+
+    <!-- Main Content -->
+    <main class="relative z-10">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h1 class="text-4xl font-bold text-center text-gray-800 mb-10">Admin Dashboard</h1>
+
+            <!-- Add User Card -->
+            <div class="admin-card p-6">
+                <h2 class="section-title text-2xl font-semibold">Add New User</h2>
+                <form action="/admin/add-user" method="post">
+                    <div class="input-container">
+                        <input class="input-field w-full px-4 py-3 text-gray-800" type="email" name="email" id="email" placeholder=" " required>
+                        <label for="email" class="floating-label">Email Address</label>
+                    </div>
+                    <div class="input-container">
+                        <input class="input-field w-full px-4 py-3 text-gray-800" type="password" name="password" id="password" placeholder=" " required>
+                        <label for="password" class="floating-label">Password</label>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <button type="submit" class="action-btn text-white font-semibold px-8 py-3 rounded-lg">
+                            Add User
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Add Post Card -->
+            <div class="admin-card p-6">
+                <h2 class="section-title text-2xl font-semibold">Add New Post</h2>
+                <form action="/admin/add-post" method="post">
+                    <div class="input-container">
+                        <input class="input-field w-full px-4 py-3 text-gray-800" type="text" name="city" id="post-city" placeholder=" ">
+                        <label for="post-city" class="floating-label">City</label>
+                    </div>
+                    <div class="input-container">
+                        <input class="input-field w-full px-4 py-3 text-gray-800" type="text" name="title" id="post-title" placeholder=" ">
+                        <label for="post-title" class="floating-label">Title</label>
+                    </div>
+                    <div class="input-container">
+                        <textarea class="content-textarea w-full px-4 py-3 text-gray-700 rounded-lg" name="content" id="post-content" placeholder=" "></textarea>
+                        <label for="post-content" class="floating-label">Content</label>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <button type="submit" class="action-btn text-white font-semibold px-8 py-3 rounded-lg">
+                            Add Post
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Delete User Card -->
+            <div class="admin-card p-6">
+                <h2 class="section-title text-2xl font-semibold">Delete User</h2>
+                <form action="/admin/delete-user" method="post">
+                    <div class="input-container">
+                        <input class="input-field w-full px-4 py-3 text-gray-800" type="email" name="email" id="delete-email" placeholder=" " required>
+                        <label for="delete-email" class="floating-label">Email Address</label>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <button type="submit" class="danger-btn text-white font-semibold px-8 py-3 rounded-lg">
+                            Delete User
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Delete Post Card -->
+            <div class="admin-card p-6">
+                <h2 class="section-title text-2xl font-semibold">Delete Post</h2>
+                <form action="/admin/delete-post" method="post">
+                    <div class="input-container">
+                        <input class="input-field w-full px-4 py-3 text-gray-800" type="number" name="post_id" id="delete-post-id" placeholder=" " required>
+                        <label for="delete-post-id" class="floating-label">Post ID</label>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <button type="submit" class="danger-btn text-white font-semibold px-8 py-3 rounded-lg">
+                            Delete Post
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Empty Posts Table Card -->
+            <div class="admin-card p-6">
+                <h2 class="section-title text-2xl font-semibold">Empty Posts Table</h2>
+                <p class="text-gray-600 mb-6">This will permanently delete all posts. This action cannot be undone.</p>
+                <div class="text-center">
+                    <button id="empty-posts-btn" class="danger-btn text-white font-semibold px-8 py-3 rounded-lg">
+                        Empty Posts Table
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="confirmation-modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Confirm Action</h3>
+            <p class="text-gray-600 mb-6">Are you sure you want to empty the posts table? This action cannot be undone.</p>
+            <div class="flex justify-end space-x-4">
+                <button id="cancel-btn" class="px-4 py-2 border border-gray-300 rounded-lg">Cancel</button>
+                <button id="confirm-btn" class="danger-btn text-white px-4 py-2 rounded-lg">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <%- include("../static/footer.ejs") %>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize particles
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 50 },
+                "color": { "value": "#9f7aea" },
+                "shape": { "type": "circle" },
+                "opacity": {
+                    "value": 0.2,
+                    "random": true,
+                    "anim": { "enable": true, "speed": 1 }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": { "enable": true, "speed": 2 }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#9f7aea",
+                    "opacity": 0.1,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1,
+                    "direction": "none",
+                    "random": true
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": false },
+                    "onclick": { "enable": false },
+                    "resize": true
+                }
+            }
+        });
+
+        // Floating label functionality
+        document.querySelectorAll('.input-field, .content-textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.nextElementSibling.style.color = '#667eea';
+            });
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.nextElementSibling.style.color = '#a0aec0';
+                }
+            });
+        });
+
+        // Confirmation modal for emptying posts table
+        const emptyPostsBtn = document.getElementById('empty-posts-btn');
+        const modal = document.getElementById('confirmation-modal');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const confirmBtn = document.getElementById('confirm-btn');
+
+        emptyPostsBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        confirmBtn.addEventListener('click', () => {
+            // Submit form or make AJAX request to empty posts table
+            window.location.href = '/admin/empty-posts';
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
