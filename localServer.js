@@ -32,10 +32,18 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // GET Routes
 app.get('/', (req, res) => {
-    res.render('routes/index.ejs')
+    res.render('routes/login.ejs')
 })
 
-app.get('/admin', (req, res) =>{
+app.get('/register', (req, res) => {
+    res.render('routes/register.ejs')
+})
+
+app.get('/terms', (req, res) => {
+    res.render('routes/terms.ejs')
+})
+
+app.get('/admin', (req, res) => {
     res.render('routes/admin.ejs')
 })
 
@@ -62,7 +70,7 @@ app.get("/joke", async (req, res) => {
 app.post('/login', async (req, res) => {
     const { email, password } = req.body
     const result = await db.query("SELECT email, password FROM users WHERE email=$1 LIMIT 1", [email])
-    if (result.rowCount <  1) {
+    if (result.rowCount < 1) {
         res.redirect("/register")
     } else {
         bcrypt.compare(password, result.rows[0].password, (err, same) => {
