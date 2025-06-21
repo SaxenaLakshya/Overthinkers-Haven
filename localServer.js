@@ -85,16 +85,23 @@ app.post('/login', async (req, res) => {
     }
 })
 
+app.post('/register', async (req, res) => {
+    const { email, password } = req.body
+    const hashedPassword = await bcrypt.hash(password, saltRounds)
+    await db.query("INSERT INTO users (email, password) VALUES ($1, $2)", [email, hashedPassword])
+    console.log("Registered Successfully!")
+    res.redirect("/read")
+})
+
 app.post('/publish', async (req, res) => {
     const { title, content, city } = req.body
-    const currentDate = new Date();
     const date = new Date().toLocaleTimeString('en-US', {
         hour: 'numeric',
         minute: 'numeric',
         hour12: true
     });
 
-    await db.query("INSERT INTO posts (title, content, date, city) VALUES ($1,$2,$3,$4)", [title, content, date, city])
+    await db.query("INSERT INTO posts (title, content, date, city) VALUES ($1, $2, $3, $4)", [title, content, date, city])
     console.log("Post added successfully!")
 
     res.render('routes/write.ejs')
