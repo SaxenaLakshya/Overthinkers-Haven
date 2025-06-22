@@ -1,5 +1,6 @@
 import bodyParser from "body-parser"
 import express from "express"
+import session from "express-session"
 import axios from "axios"
 import { createClient } from "@supabase/supabase-js"
 import bcrypt from "bcrypt"
@@ -14,13 +15,31 @@ const API_KEY = "https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Dark,Pun,
 const saltRounds = 10
 env.config()
 
+
 // Connecting to Supabase
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY)
+
+
+// Middleware for sessions
+app.use(session({
+    secret: "OVERTHINKERS-HAVEN",
+    resave: false,
+    saveUninitialized: false
+}))
 
 
 // Middlewares
 app.use(express.static('views'))
 app.use(bodyParser.urlencoded({ extended: true }))
+
+
+// Middleware to protect routes
+function isLoggedIn(req, res, next) {
+    if (req.session.user) {
+        return next()
+    }
+    res.redirect("/")
+}
 
 
 // Midnight function
@@ -34,6 +53,7 @@ async function runAtMidnight() {
     }
 }
 
+
 // Scheduling the task
 cron.schedule('0 0 * * *', () => {
     runAtMidnight();
@@ -44,6 +64,9 @@ cron.schedule('0 0 * * *', () => {
 
 // GET Routes
 app.get('/', (req, res) => {
+    if (req.session.user) {
+        return res.redirect("/read")
+    }
     res.render("routes/login.ejs")
 })
 
@@ -55,20 +78,20 @@ app.get('/terms', (req, res) => {
     res.render('routes/terms.ejs')
 })
 
-app.get('/write', (req, res) => {
+app.get('/write', isLoggedIn, (req, res) => {
     res.render("routes/write.ejs")
 })
 
-app.get('/read', async (req, res) => {
+app.get('/read', isLoggedIn, async (req, res) => {
     const { data, error } = await supabase.from('posts').select('title, content, date, city')
     if (error) {
-        res.render('<h1>Something went wrong while fetching data...</h1>')
+        res.send('<h1>Something went wrong while fetching data...</h1>')
     } else {
         res.render('routes/display.ejs', { blogs: data })
     }
 })
 
-app.get("/joke", async (req, res) => {
+app.get("/joke", isLoggedIn, async (req, res) => {
     try {
         const result = await axios.get(API_KEY)
         res.render("routes/joke.ejs", { content: result.data })
@@ -83,7 +106,7 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body
     const { data, error } = await supabase
         .from('users')
-        .select('email, password')
+        .select('id, email, password')
         .eq('email', email)
         .single()
     if (!data || error) {
@@ -91,6 +114,7 @@ app.post('/login', async (req, res) => {
     } else {
         const match = await bcrypt.compare(password, data.password)
         if (match) {
+            req.session.user = { id: data.id, email: data.email }
             console.log("Login Successful!")
             res.redirect("/read")
         } else {
@@ -106,9 +130,13 @@ app.post('/register', async (req, res) => {
     const { data, error } = await supabase
         .from('users')
         .insert([{ email, password: hashedPassword }])
-    if (error) {
-        res.render("<h1>Something went wrong while storing the data...</h1>")
+        .select('id, email')
+        .single()
+
+    if (error || !data || data.length === 0) {
+        res.send("<h1>Something went wrong while storing the data...</h1>")
     } else {
+        req.session.user = { id: data.id, email: data.email }
         console.log("Registered Successfully")
         res.redirect("/read")
     }
@@ -124,10 +152,18 @@ app.post('/publish', async (req, res) => {
 
     const { error } = await supabase.from('posts').insert([{ title, content, date, city }])
     if (error) {
-        res.render("<h1>Something went wrong while storing the data...</h1>")
+        res.send("<h1>Something went wrong while storing the data...</h1>")
     } else {
         res.render('routes/write.ejs')
     }
+})
+
+
+// Logout route
+app.get("/logout", (req, res) => {
+    req.session.destroy(() => {
+        res.redirect("/")
+    })
 })
 
 

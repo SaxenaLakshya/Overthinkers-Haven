@@ -1,19 +1,20 @@
 import bodyParser from "body-parser"
 import express from "express"
+import session from "express-session"
 import axios from "axios"
 import pg from "pg"
 import bcrypt from "bcrypt"
 import env from "dotenv"
 
 
-// Important contants
 const app = express()
 const port = 3000
 const API_KEY = "https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Dark,Pun,Spooky,Christmas?blacklistFlags=religious,racist&type=twopart"
 const saltRounds = 10
 env.config()
 
-// Connecting to the Local PostgreSQL Database
+
+// DB Connection
 const db = new pg.Client({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
@@ -25,38 +26,52 @@ const db = new pg.Client({
 db.connect()
 
 
+// Middleware for sessions
+app.use(session({
+    secret: "OVERTHINKERS-HAVEN",
+    resave: false,
+    saveUninitialized: false
+}))
+
+
 // Middlewares
 app.use(express.static('views'))
 app.use(bodyParser.urlencoded({ extended: true }))
 
 
+// Middleware to protect routes
+function isLoggedIn(req, res, next) {
+    if (req.session.user) {
+        return next()
+    }
+    res.redirect("/")
+}
+
+
 // GET Routes
 app.get('/', (req, res) => {
+    if (req.session.user) {
+        return res.redirect("/read")
+    }
     res.render('routes/login.ejs')
 })
 
-app.get('/register', (req, res) => {
-    res.render('routes/register.ejs')
-})
+app.get('/register', (req, res) => res.render('routes/register.ejs'))
 
-app.get('/terms', (req, res) => {
-    res.render('routes/terms.ejs')
-})
+app.get('/terms', (req, res) => res.render('routes/terms.ejs'))
 
-app.get('/admin', (req, res) => {
-    res.render('routes/admin.ejs')
-})
+app.get('/admin', (req, res) => res.render('routes/admin.ejs'))
 
-app.get('/write', (req, res) => {
-    res.render("routes/write.ejs")
-})
+app.get('/write', isLoggedIn, (req, res) => res.render("routes/write.ejs"))
 
-app.get('/read', async (req, res) => {
+
+// Protected Read Route
+app.get('/read', isLoggedIn, async (req, res) => {
     const result = await db.query("SELECT title, content, date, city FROM posts")
     res.render('routes/display.ejs', { blogs: result.rows })
 })
 
-app.get("/joke", async (req, res) => {
+app.get("/joke", isLoggedIn, async (req, res) => {
     try {
         const result = await axios.get(API_KEY)
         res.render("routes/joke.ejs", { content: result.data })
@@ -69,31 +84,33 @@ app.get("/joke", async (req, res) => {
 // POST Routes
 app.post('/login', async (req, res) => {
     const { email, password } = req.body
-    const result = await db.query("SELECT email, password FROM users WHERE email=$1 LIMIT 1", [email])
+    const result = await db.query("SELECT * FROM users WHERE email=$1 LIMIT 1", [email])
+
     if (result.rowCount < 1) {
         res.redirect("/register")
     } else {
-        bcrypt.compare(password, result.rows[0].password, (err, same) => {
-            if (same) {
-                console.log("Login Successful!")
-                res.redirect("/read")
-            } else {
-                console.log("Wrong Password!")
-                res.redirect("/")
-            }
-        })
+        const valid = await bcrypt.compare(password, result.rows[0].password)
+        if (valid) {
+            req.session.user = { id: result.rows[0].id, email: result.rows[0].email }
+            console.log("Login Successful!")
+            res.redirect("/read")
+        } else {
+            console.log("Wrong Password!")
+            res.redirect("/")
+        }
     }
 })
 
 app.post('/register', async (req, res) => {
     const { email, password } = req.body
     const hashedPassword = await bcrypt.hash(password, saltRounds)
-    await db.query("INSERT INTO users (email, password) VALUES ($1, $2)", [email, hashedPassword])
+    const result = await db.query("INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id", [email, hashedPassword])
+    req.session.user = { id: result.rows[0].id, email }
     console.log("Registered Successfully!")
     res.redirect("/read")
 })
 
-app.post('/publish', async (req, res) => {
+app.post('/publish', isLoggedIn, async (req, res) => {
     const { title, content, city } = req.body
     const date = new Date().toLocaleTimeString('en-US', {
         hour: 'numeric',
@@ -108,7 +125,15 @@ app.post('/publish', async (req, res) => {
 })
 
 
-// Going Live!
+// Logout route
+app.get("/logout", (req, res) => {
+    req.session.destroy(() => {
+        res.redirect("/")
+    })
+})
+
+
+// Start server
 app.listen(port, () => {
     console.log(`Your app is running on http://localhost:${port}`)
 })
