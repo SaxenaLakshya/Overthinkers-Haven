@@ -64,21 +64,12 @@ app.get('/admin', (req, res) => res.render('routes/admin.ejs'))
 
 app.get('/write', isLoggedIn, (req, res) => res.render("routes/write.ejs"))
 
-
-// Protected Read Route
 app.get('/read', isLoggedIn, async (req, res) => {
     const result = await db.query("SELECT title, content, date, city FROM posts")
     res.render('routes/display.ejs', { blogs: result.rows })
 })
 
-app.get("/joke", isLoggedIn, async (req, res) => {
-    try {
-        const result = await axios.get(API_KEY)
-        res.render("routes/joke.ejs", { content: result.data })
-    } catch (error) {
-        console.log(error)
-    }
-})
+app.get("/joke", isLoggedIn, (req, res) => res.render("routes/joke.ejs", { content: null }))
 
 
 // POST Routes
@@ -122,6 +113,37 @@ app.post('/publish', isLoggedIn, async (req, res) => {
     console.log("Post added successfully!")
 
     res.render('routes/write.ejs')
+})
+
+app.post("/joke", isLoggedIn, async (req, res) => {
+    try {
+        const {
+            Programming, Miscellaneous, Dark, Pun,
+            Spooky, Christmas,
+            nsfw, religious, political, racist, sexist, explicit
+        } = req.body
+
+        let categories = [Programming, Miscellaneous, Dark, Pun, Spooky, Christmas]
+            .filter(Boolean)
+        let blacklists = [nsfw, religious, political, racist, sexist, explicit]
+            .filter(Boolean)
+
+        let url = "https://v2.jokeapi.dev/joke/"
+        url += categories.length ? categories.join(",") : "Any"
+        url += "?"
+
+        if (blacklists.length) {
+            url += "blacklistFlags=" + blacklists.join(",") + "&"
+        }
+
+        url += "type=twopart"
+
+        const result = await axios.get(url)
+        res.render("routes/joke.ejs", { content: result.data })
+    } catch (error) {
+        console.log("Joke Fetch Error:", error)
+        res.render("routes/joke.ejs", { content: null })
+    }
 })
 
 
