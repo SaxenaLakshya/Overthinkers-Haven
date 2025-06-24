@@ -11,7 +11,6 @@ import cron from "node-cron"
 // Important constants
 const app = express()
 const PORT = process.env.PORT || 3000
-const API_KEY = "https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Dark,Pun,Spooky,Christmas?blacklistFlags=religious,racist&type=twopart"
 const saltRounds = 10
 env.config()
 
