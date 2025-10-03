@@ -62,7 +62,7 @@ Follow the link: https://overthinkers-haven.onrender.com/
 - [ ] 🌍 **Paginated Global Feed**  
   Add pagination or infinite scroll for post viewing.
 
-- [ ] 💾 **Better Session Management**  
+- [x] 💾 **Better Session Management**  
   Secure tokens or cookies with proper expiration.
 
 - [ ] 🎨 **UI Enhancements**  
